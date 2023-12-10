@@ -1,7 +1,6 @@
 import boto3
 import configparser
 import json
-from botocore.exceptions import ClientError
 
 dwh_config = configparser.ConfigParser()
 aws_config = configparser.ConfigParser()
@@ -77,3 +76,14 @@ try:
     )
 except Exception as e:
     print(e)
+
+cluster_spec = redshift.describe_clusters(ClusterIdentifier=DWH_CLUSTER_IDENTIFIER)["Clusters"][0]
+
+DWH_ENDPOINT = cluster_spec["Endpoint"]["Address"]
+
+dwh_config.set("CLUSTER", "HOST", DWH_ENDPOINT)
+dwh_config.set("IAM_ROLE", "ARN", role_arn)
+
+with open("dwh.cfg", "w") as configfile:
+    dwh_config.write(configfile)
+

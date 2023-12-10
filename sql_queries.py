@@ -7,17 +7,36 @@ config.read('dwh.cfg')
 
 # DROP TABLES
 
-staging_events_table_drop = ""
-staging_songs_table_drop = ""
-songplay_table_drop = ""
-user_table_drop = ""
-song_table_drop = ""
-artist_table_drop = ""
-time_table_drop = ""
+staging_events_table_drop = "DROP TABLE IF EXISTS staging_events;"
+staging_songs_table_drop = "DROP TABLE IF EXISTS staging_drop;"
+songplay_table_drop = "DROP TABLE IF EXISTS staging_songplay;"
+user_table_drop = "DROP TABLE IF EXISTS user;"
+song_table_drop = "DROP TABLE IF EXISTS song;"
+artist_table_drop = "DROP TABLE IF EXISTS artist;"
+time_table_drop = "DROP TABLE IF EXISTS time;"
 
 # CREATE TABLES
 
 staging_events_table_create= ("""
+CREATE TABLE staging_events (
+  artist varchar(100),
+  auth varchar(22),
+  gender varchar(1),
+  item_in_session varchar(5),
+  last_name varchar(30),
+  length varchar(20),
+  level varchar(10),
+  location varchar(100),
+  method varchar(10),
+  page varchar(20),
+  registration varchar(50),
+  session_id varchar(10),
+  song varchar(100),
+  status varchar(4),
+  ts varchar(15),
+  user_agent varchar(100),
+  user_id varchar(10)
+);
 """)
 
 staging_songs_table_create = ("""
