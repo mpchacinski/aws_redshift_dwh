@@ -40,7 +40,7 @@ redshift = boto3.client("redshift",
 # Creating a role
 try:
     print("1.1 Creating a new IAM Role")
-    dwhRole = iam.create_role(
+    dwh_role = iam.create_role(
         Path='/',
         RoleName=DWH_IAM_ROLE_NAME,
         Description="Allows Redshift clusters to call AWS services on your behalf.",
@@ -60,7 +60,7 @@ iam.attach_role_policy(RoleName=DWH_IAM_ROLE_NAME,
                        )['ResponseMetadata']['HTTPStatusCode']
 
 print("1.3 Get the IAM role ARN")
-roleArn = iam.get_role(RoleName=DWH_IAM_ROLE_NAME)['Role']['Arn']
+role_arn = iam.get_role(RoleName=DWH_IAM_ROLE_NAME)['Role']['Arn']
 
 # Creating Redshift Cluster
 try:
@@ -77,14 +77,7 @@ try:
         MasterUserPassword=DWH_DB_PASSWORD,
 
         # Roles (for s3 access)
-        IamRoles=[roleArn]
+        IamRoles=[role_arn]
     )
 except Exception as e:
     print(e)
-
-# myClusterProps = redshift.describe_clusters(ClusterIdentifier=DWH_CLUSTER_IDENTIFIER)['Clusters'][0]
-#
-# DWH_ENDPOINT = myClusterProps['Endpoint']['Address']
-# DWH_ROLE_ARN = myClusterProps['IamRoles'][0]['IamRoleArn']
-# print("DWH_ENDPOINT :: ", DWH_ENDPOINT)
-# print("DWH_ROLE_ARN :: ", DWH_ROLE_ARN)
