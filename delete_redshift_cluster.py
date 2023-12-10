@@ -27,7 +27,7 @@ redshift.delete_cluster( ClusterIdentifier=DWH_CLUSTER_IDENTIFIER,  SkipFinalClu
 
 cluster_spec = redshift.describe_clusters(ClusterIdentifier=DWH_CLUSTER_IDENTIFIER)['Clusters'][0]
 cluster_status = cluster_spec["ClusterStatus"]
-print(cluster_status)
+print(f"Cluster status: {cluster_status}")
 
 iam.detach_role_policy(RoleName=DWH_IAM_ROLE_NAME, PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess")
 iam.delete_role(RoleName=DWH_IAM_ROLE_NAME)
