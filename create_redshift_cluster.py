@@ -39,7 +39,6 @@ redshift = boto3.client("redshift",
 
 # Creating a role
 try:
-    print("1.1 Creating a new IAM Role")
     dwh_role = iam.create_role(
         Path='/',
         RoleName=DWH_IAM_ROLE_NAME,
@@ -53,13 +52,10 @@ try:
 except Exception as e:
     print(e)
 
-print("1.2 Attaching Policy")
-
 iam.attach_role_policy(RoleName=DWH_IAM_ROLE_NAME,
                        PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
                        )['ResponseMetadata']['HTTPStatusCode']
 
-print("1.3 Get the IAM role ARN")
 role_arn = iam.get_role(RoleName=DWH_IAM_ROLE_NAME)['Role']['Arn']
 
 # Creating Redshift Cluster
