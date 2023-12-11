@@ -1,6 +1,7 @@
 import boto3
 import configparser
 import json
+import time
 
 dwh_config = configparser.ConfigParser()
 aws_config = configparser.ConfigParser()
@@ -37,6 +38,7 @@ redshift = boto3.client("redshift",
                        )
 
 # Creating a role
+print("Creating a role to call AWS services")
 try:
     dwh_role = iam.create_role(
         Path='/',
@@ -58,6 +60,7 @@ iam.attach_role_policy(RoleName=DWH_IAM_ROLE_NAME,
 role_arn = iam.get_role(RoleName=DWH_IAM_ROLE_NAME)['Role']['Arn']
 
 # Creating Redshift Cluster
+print("Creating a redshift cluster...")
 try:
     response = redshift.create_cluster(
         # HW
@@ -76,6 +79,9 @@ try:
     )
 except Exception as e:
     print(e)
+
+# Wait three mins for the cluster to initiate creating process in order to get its parameters
+time.sleep(180)
 
 cluster_spec = redshift.describe_clusters(ClusterIdentifier=DWH_CLUSTER_IDENTIFIER)["Clusters"][0]
 
