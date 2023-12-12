@@ -137,17 +137,17 @@ INSERT INTO songplays (start_time, user_id, level, song_id,
                        artist_id, session_id, location, user_agent)
 SELECT
     TIMESTAMP 'epoch' + (se.ts / 1000) * INTERVAL '1 second' as start_time,
-    se.userId,
+    se.user_id,
     se.level,
     ss.song_id,
     ss.artist_id,
-    se.sessionId,
+    se.session_id,
     se.location,
-    se.userAgent
+    se.user_agent
 FROM staging_events se
 JOIN staging_songs ss ON 
     se.song = ss.title
-    AND se.artist_name = ss.artist
+    AND se.artist = ss.artist_name
 WHERE
     se.page = 'NextSong';
 """)
@@ -167,8 +167,7 @@ WHERE user_id IS NOT NULL;
 
 song_table_insert = ("""
 INSERT INTO songs
-SELECT
-    DISTINCT 
+SELECT DISTINCT 
     song_id, 
     title, 
     artist_id, 
@@ -193,15 +192,14 @@ WHERE artist_id IS NOT NULL;
 
 time_table_insert = ("""
 INSERT INTO time
-SELECT 
-    DISTINCT
+SELECT DISTINCT
     TIMESTAMP 'epoch' + (ts/1000) * INTERVAL '1 second' as start_time,
     EXTRACT(HOUR FROM start_time) AS hour,
     EXTRACT(DAY FROM start_time) AS day,
     EXTRACT(WEEKS FROM start_time) AS week,
     EXTRACT(MONTH FROM start_time) AS month,
     EXTRACT(YEAR FROM start_time) AS year,
-    to_char(start_time, 'Day') AS weekday
+    EXTRACT(DOW FROM start_time) AS weekday
 FROM staging_events
 WHERE ts IS NOT NULL;
 """)
