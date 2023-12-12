@@ -179,8 +179,7 @@ WHERE song_id IS NOT NULL;
 
 artist_table_insert = ("""
 INSERT INTO artists
-SELECT
-    DISTINCT 
+SELECT DISTINCT 
     artist_id, 
     artist_name, 
     artist_location, 
