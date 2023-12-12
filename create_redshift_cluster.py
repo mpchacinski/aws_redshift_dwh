@@ -10,23 +10,24 @@ dwh_config.read_file(open('dwh.cfg'))
 aws_config.read_file(open('aws_auth.cfg'))
 
 
-KEY                    = aws_config.get('AWS','KEY')
-SECRET                 = aws_config.get('AWS','SECRET')
+KEY = aws_config.get('AWS','KEY')
+SECRET = aws_config.get('AWS','SECRET')
 
-DWH_CLUSTER_TYPE       = dwh_config.get("DWH","DWH_CLUSTER_TYPE")
-DWH_NUM_NODES          = dwh_config.get("DWH","DWH_NUM_NODES")
-DWH_NODE_TYPE          = dwh_config.get("DWH","DWH_NODE_TYPE")
+DWH_CLUSTER_TYPE = dwh_config.get("DWH","dwh_cluster_type")
+DWH_NUM_NODES = dwh_config.get("DWH","dwh_num_nodes")
+DWH_NODE_TYPE = dwh_config.get("DWH","dwh_node_type")
 
-DWH_CLUSTER_IDENTIFIER = dwh_config.get("DWH","DWH_CLUSTER_IDENTIFIER")
-DWH_DB                 = dwh_config.get("CLUSTER","DB_NAME")
-DWH_DB_USER            = dwh_config.get("CLUSTER","DB_USER")
-DWH_DB_PASSWORD        = dwh_config.get("CLUSTER","DB_PASSWORD")
-DWH_PORT               = dwh_config.get("CLUSTER","DB_PORT")
+DWH_CLUSTER_IDENTIFIER = dwh_config.get("DWH","dwh_cluster_identifier")
+DWH_DB = dwh_config.get("CLUSTER","db_name")
+DWH_DB_USER = dwh_config.get("CLUSTER","db_user")
+DWH_DB_PASSWORD = dwh_config.get("CLUSTER","db_password")
+DWH_PORT = dwh_config.get("CLUSTER","db_port")
 
-DWH_IAM_ROLE_NAME      = dwh_config.get("DWH", "DWH_IAM_ROLE_NAME")
+DWH_IAM_ROLE_NAME = dwh_config.get("DWH", "dwh_iam_role_name")
 
 # Creating clients for iam and redshift
-iam = boto3.client("iam",aws_access_key_id=KEY,
+iam = boto3.client("iam",
+                     aws_access_key_id=KEY,
                      aws_secret_access_key=SECRET,
                      region_name="us-east-1"
                   )

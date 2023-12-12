@@ -62,7 +62,7 @@ CREATE TABLE staging_songs (
 
 songplay_table_create = ("""
 CREATE TABLE songplays (
-    songplay_id identity(1,1) PRIMARY KEY,
+    songplay_id integer identity(1, 1) PRIMARY KEY,
     start_time timestamp NOT NULL,
     user_id integer NOT NULL,
     level varchar,
