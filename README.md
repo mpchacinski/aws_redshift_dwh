@@ -93,3 +93,19 @@ records with page 'NextSong'
 * **artists** - all artists in music database
 * **time** - timestamps of records in songplays broken 
 down into specific units
+
+## Instructions
+
+1. Provide AWS key and secret of a user with 
+_AdministratorAccess_ role in the _aws_auth.cfg_ file.
+2. Run _create_redshift_cluster.py_ script to create and
+initiate a Redshift cluster. The script will also write
+DWH endpoint and role arn into _dwh.cfg_ file.
+3. Run _create_tables.py_ file to create staging and target
+tables.
+4. Run _etl.py_ to insert data into previously created
+tables.
+5. It will take circa 50 minutes in order to load all 
+the data.
+6. Run _delete_redshift_cluster.py_ script to delete
+Redshift cluster.
