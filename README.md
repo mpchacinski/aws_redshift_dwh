@@ -75,3 +75,21 @@ Record example:
     "userId": 10
 }`
 
+## Target data model
+
+Using the dataset provided, the goal of this project is to create
+a dimensional data model, specifically a star schema, consisting of the
+following tables:
+
+### Fact table 
+
+**songplays** - records in event data associated with song plays i.e. 
+records with page 'NextSong'
+
+### Dimension tables
+
+* **users** - characteristics of users in the app
+* **songs** - all songs in music database
+* **artists** - all artists in music database
+* **time** - timestamps of records in songplays broken 
+down into specific units
