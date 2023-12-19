@@ -1,3 +1,5 @@
+"""This script creates a redshift cluster and a Redshift S3 read access role."""
+
 import boto3
 import configparser
 import json

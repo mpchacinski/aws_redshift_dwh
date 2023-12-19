@@ -1,3 +1,5 @@
+"""Delete Redshift cluster and role associated with DWH User."""
+
 import boto3
 import configparser
 

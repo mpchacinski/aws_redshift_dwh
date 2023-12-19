@@ -1,21 +1,26 @@
+"""Contains function definitions for executing DDL statements."""
+
 import configparser
 import psycopg2
 from sql_queries import create_table_queries, drop_table_queries
 
 
 def drop_tables(cur, conn):
+    """Run DROP statements."""
     for query in drop_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def create_tables(cur, conn):
+    """Run CREATE TABLE statements."""
     for query in create_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def main():
+    """Take arguments from cfg file and run DDL functions on a Redshift cluster."""
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
 
